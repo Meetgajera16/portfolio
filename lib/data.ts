@@ -1,13 +1,13 @@
 export const personalInfo = {
-  name: 'Meet Gajera',
+  name: 'Meetkumar Gajera',
   fullName: 'Meetkumar Ashokbhai Gajera',
   title: 'Data Science Graduate Student',
   subtitle: 'Analytics · Machine Learning · Business Intelligence',
   email: 'meetgajera16@gmail.com',
   phone: '+1 (201) 284-8150',
   location: 'New Jersey, USA',
-  linkedin: 'https://linkedin.com/in/meetgajera',
-  github: 'https://github.com/meetgajera',
+  linkedin: 'https://www.linkedin.com/in/meet-gajera-415333246/',
+  github: 'https://github.com/Meetgajera16',
   bio: [
     "I'm a Data Science graduate student at Stevens Institute of Technology (GPA: 3.727), with a Bachelor's in Information Technology from Kadi Sarva Vishwavidyalaya, India.",
     'I specialize in building analytics pipelines, ML models, and KPI dashboards that translate raw data into executive-ready decisions — bridging the gap between data engineering and business strategy.',
