@@ -1,7 +1,7 @@
 export const personalInfo = {
   name: 'Meetkumar Gajera',
   fullName: 'Meetkumar Ashokbhai Gajera',
-  title: 'Data Science Graduate Stu dent',
+  title: 'Data Science Graduate Student',
   subtitle: 'Analytics · Machine Learning · Business Intelligence',
   email: 'meetgajera16@gmail.com',
   phone: '+1 (201) 284-8150',

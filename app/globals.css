@@ -7,9 +7,9 @@
 :root {
   --font-display: 'Cormorant Garamond', serif;
   --font-body: 'Outfit', sans-serif;
-  --navy: #08131F;
-  --navy-mid: #0F2035;
-  --navy-light: #162B47;
+  --navy: #000000;
+  --navy-mid: #0a0a0a;
+  --navy-light: #111111;
   --gold: #B49130;
   --gold-light: #D4AE52;
   --cream: #EDE8DD;
