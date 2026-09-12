@@ -1,3 +1,8 @@
 node_modules
 .next
 out
+
+# Local / generated files
+tsconfig.tsbuildinfo
+*.code-workspace
+portfolio-update/

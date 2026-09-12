@@ -1,175 +1,115 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+
+import { useEffect, useRef } from 'react'
 import SectionHeader from './SectionHeader'
 import { personalInfo } from '@/lib/data'
 
 export default function Contact() {
   const ref = useRef<HTMLElement>(null)
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
-  const [sent, setSent] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add('visible')),
+      (entries) =>
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add('visible')
+        }),
       { threshold: 0.08 }
     )
+
     ref.current?.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
+
     return () => observer.disconnect()
   }, [])
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setSent(true)
-    setTimeout(() => {
-      setSent(false)
-      setForm({ name: '', email: '', subject: '', message: '' })
-    }, 3500)
-  }
-
   const contactLinks = [
-    { icon: '✉️', label: 'Email', value: personalInfo.email, href: `mailto:${personalInfo.email}` },
-    { icon: '📞', label: 'Phone', value: personalInfo.phone, href: `tel:${personalInfo.phone.replace(/\D/g, '')}` },
-    { icon: '💼', label: 'LinkedIn', value: 'linkedin.com/in/meetgajera', href: personalInfo.linkedin },
-    { icon: '📍', label: 'Location', value: personalInfo.location, href: '#' },
+    {
+      icon: '✉️',
+      label: 'Email',
+      value: personalInfo.email,
+      href: `mailto:${personalInfo.email}`,
+    },
+    {
+      icon: '💼',
+      label: 'LinkedIn',
+      value: 'Connect professionally',
+      href: personalInfo.linkedin,
+    },
+    {
+      icon: '💻',
+      label: 'GitHub',
+      value: 'View my repositories',
+      href: personalInfo.github,
+    },
+    {
+      icon: '📍',
+      label: 'Location',
+      value: personalInfo.location,
+      href: '#',
+    },
   ]
 
-  const inputStyle = {
-    background: 'rgba(22,43,71,0.5)',
-    border: '1px solid var(--border)',
-    color: 'var(--cream)',
-    outline: 'none',
-    backdropFilter: 'blur(8px)',
-  }
-
   return (
-    <section
-      id="contact"
-      ref={ref}
-      className="relative py-24 px-6 md:px-16 lg:px-24 max-w-7xl mx-auto"
-    >
-      <div className="section-divider mb-20" />
-      <SectionHeader tag="Let's Talk" title="Get In" highlight="Touch" />
+    <section id="contact" ref={ref} className="section-shell">
+      <SectionHeader tag="Let’s Connect" title="Get In" highlight="Touch" />
 
-      <div className="grid md:grid-cols-5 gap-12 items-start">
-        {/* Left — info */}
-        <div className="md:col-span-2 space-y-8 reveal">
-          <p className="text-base leading-8 font-light" style={{ color: '#8AA0BC' }}>
-            I'm actively looking for Data Science, Analytics, and BI internship opportunities for
-            Summer / Fall 2026. If you have a project or opening that aligns with my background,
-            I'd love to connect.
+      <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="reveal blackhole-card rounded-2xl p-7 md:p-9">
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.28em] text-[#D4AF37]">
+            Final Signal
           </p>
 
-          <div className="space-y-3">
-            {contactLinks.map((c) => (
-              <a
-                key={c.label}
-                href={c.href}
-                target={c.href.startsWith('http') ? '_blank' : undefined}
-                rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 rounded-lg transition-all duration-200 hover:translate-x-1 group"
-                style={{
-                  background: 'rgba(22,43,71,0.45)',
-                  border: '1px solid var(--border)',
-                  backdropFilter: 'blur(10px)',
-                }}
-              >
-                <span className="text-xl">{c.icon}</span>
-                <div>
-                  <div
-                    className="text-[10px] font-semibold tracking-[0.15em] uppercase"
-                    style={{ color: 'var(--muted)' }}
-                  >
-                    {c.label}
-                  </div>
-                  <div
-                    className="text-sm font-medium transition-colors group-hover:text-gold"
-                    style={{ color: 'var(--cream)' }}
-                  >
-                    {c.value}
-                  </div>
-                </div>
-              </a>
-            ))}
+          <h3 className="font-display text-4xl font-black leading-tight text-[#EDE8DD]">
+            Interested in working together?
+          </h3>
+
+          <p className="mt-5 text-base font-light leading-8 text-[#8AA0BC]">
+            I am actively looking for Data Science, Machine Learning, Analytics,
+            and AI-focused internship opportunities. If my projects align with
+            your team or role, I would be happy to connect.
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="rounded-sm bg-[#D4AF37] px-6 py-3 text-xs font-black uppercase tracking-[0.18em] text-black transition hover:-translate-y-0.5 hover:shadow-[0_0_22px_rgba(212,175,55,0.28)]"
+            >
+              Send Email
+            </a>
+
+            <a
+              href={personalInfo.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-sm border border-white/15 px-6 py-3 text-xs font-bold uppercase tracking-[0.18em] text-[#EDE8DD] transition hover:-translate-y-0.5 hover:border-[#D4AF37]/60 hover:text-[#D4AF37]"
+            >
+              LinkedIn
+            </a>
           </div>
         </div>
 
-        {/* Right — form */}
-        <form
-          className="md:col-span-3 space-y-5 reveal delay-2"
-          onSubmit={handleSubmit}
-        >
-          <div className="grid sm:grid-cols-2 gap-5">
-            {[
-              { key: 'name', label: 'Full Name', placeholder: 'Jane Smith', type: 'text' },
-              { key: 'email', label: 'Email Address', placeholder: 'jane@company.com', type: 'email' },
-            ].map((f) => (
-              <div key={f.key} className="flex flex-col gap-1.5">
-                <label
-                  className="text-[10px] font-semibold tracking-[0.18em] uppercase"
-                  style={{ color: 'var(--muted)' }}
-                >
-                  {f.label}
-                </label>
-                <input
-                  type={f.type}
-                  placeholder={f.placeholder}
-                  required
-                  value={form[f.key as keyof typeof form]}
-                  onChange={(e) => setForm({ ...form, [f.key]: e.target.value })}
-                  className="px-4 py-3 rounded-sm text-sm font-light focus:border-gold transition-colors"
-                  style={inputStyle}
-                />
+        <div className="grid gap-4 sm:grid-cols-2">
+          {contactLinks.map((item, index) => (
+            <a
+              key={item.label}
+              href={item.href}
+              target={item.href.startsWith('http') ? '_blank' : undefined}
+              rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              className={`reveal delay-${(index % 5) + 1} blackhole-card blackhole-card-hover rounded-2xl p-6`}
+            >
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-xl">
+                {item.icon}
               </div>
-            ))}
-          </div>
 
-          <div className="flex flex-col gap-1.5">
-            <label
-              className="text-[10px] font-semibold tracking-[0.18em] uppercase"
-              style={{ color: 'var(--muted)' }}
-            >
-              Subject
-            </label>
-            <input
-              type="text"
-              placeholder="Internship Opportunity / Collaboration"
-              value={form.subject}
-              onChange={(e) => setForm({ ...form, subject: e.target.value })}
-              className="px-4 py-3 rounded-sm text-sm font-light focus:border-gold transition-colors"
-              style={inputStyle}
-            />
-          </div>
+              <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4AF37]">
+                {item.label}
+              </p>
 
-          <div className="flex flex-col gap-1.5">
-            <label
-              className="text-[10px] font-semibold tracking-[0.18em] uppercase"
-              style={{ color: 'var(--muted)' }}
-            >
-              Message
-            </label>
-            <textarea
-              rows={5}
-              placeholder="Tell me about the role or project..."
-              required
-              value={form.message}
-              onChange={(e) => setForm({ ...form, message: e.target.value })}
-              className="px-4 py-3 rounded-sm text-sm font-light focus:border-gold transition-colors resize-y"
-              style={inputStyle}
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full py-3.5 text-sm font-bold tracking-widest uppercase rounded-sm transition-all duration-200 hover:-translate-y-0.5 active:scale-95"
-            style={{
-              background: sent ? 'rgba(74,222,128,0.2)' : 'var(--gold)',
-              color: sent ? '#4ade80' : 'var(--navy)',
-              border: sent ? '1px solid rgba(74,222,128,0.4)' : 'none',
-            }}
-          >
-            {sent ? '✓ Message Sent!' : 'Send Message →'}
-          </button>
-        </form>
+              <p className="text-sm font-medium leading-6 text-[#EDE8DD]">
+                {item.value}
+              </p>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   )

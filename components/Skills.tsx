@@ -1,70 +1,46 @@
 'use client'
-import { useEffect, useRef } from 'react'
-import SectionHeader from './SectionHeader'
+
 import { skills } from '@/lib/data'
 
 export default function Skills() {
-  const ref = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add('visible')),
-      { threshold: 0.08 }
-    )
-    ref.current?.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
-
   return (
-    <section
-      id="skills"
-      ref={ref}
-      className="relative py-24 px-6 md:px-16 lg:px-24 max-w-7xl mx-auto"
-    >
-      <div className="section-divider mb-20" />
-      <SectionHeader tag="What I Know" title="Technical" highlight="Skills" />
+    <section id="skills" className="relative z-10 min-h-screen px-6 py-28 md:px-16 lg:px-24">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[0.82fr_1.18fr]">
+        <div>
+          <p className="mb-4 text-xs font-black uppercase tracking-[0.35em] text-[#D4AF37]">
+            Skill Constellations
+          </p>
+          <h2 className="font-display text-[clamp(3.5rem,7vw,7rem)] font-black leading-[0.9] text-[#EDE8DD]">
+            Technical <span className="text-[#D4AF37]">Stars</span>
+          </h2>
+          <p className="mt-6 max-w-xl text-lg font-light leading-8 text-[#8AA0BC]">
+            Skills are shown like constellations around the void: each cluster connects to the systems and projects I build.
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {skills.map((cat, i) => (
-          <div
-            key={cat.category}
-            className={`reveal delay-${(i % 5) + 1} group p-6 rounded-lg transition-all duration-300 hover:-translate-y-1`}
-            style={{
-              background: 'rgba(22,43,71,0.45)',
-              border: '1px solid var(--border)',
-              backdropFilter: 'blur(12px)',
-            }}
-          >
-            {/* Header */}
-            <div
-              className="flex items-center gap-2 mb-4 pb-4 text-xs font-bold tracking-[0.16em] uppercase"
-              style={{
-                color: 'var(--gold)',
-                borderBottom: '1px solid var(--border)',
-              }}
-            >
-              <span className="text-base">{cat.icon}</span>
-              {cat.category}
-            </div>
+        <div className="grid gap-5 sm:grid-cols-2">
+          {skills.map((cat) => (
+            <div key={cat.category} className="rounded-3xl border border-white/10 bg-[#050816]/55 p-6 backdrop-blur-md transition hover:-translate-y-1 hover:border-[#D4AF37]/40">
+              <div className="mb-5 flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-xl">
+                  {cat.icon}
+                </div>
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[#D4AF37]">Cluster</p>
+                  <h3 className="text-xl font-bold text-[#EDE8DD]">{cat.category}</h3>
+                </div>
+              </div>
 
-            {/* Tags */}
-            <div className="flex flex-wrap gap-2">
-              {cat.items.map((item) => (
-                <span
-                  key={item}
-                  className="text-xs px-3 py-1 rounded-sm font-medium transition-all duration-150 cursor-default hover:scale-105"
-                  style={{
-                    background: 'rgba(180,145,48,0.08)',
-                    border: '1px solid rgba(180,145,48,0.18)',
-                    color: '#A0B8D0',
-                  }}
-                >
-                  {item}
-                </span>
-              ))}
+              <div className="flex flex-wrap gap-2">
+                {cat.items.map((item) => (
+                  <span key={item} className="rounded-full border border-white/10 bg-white/[0.035] px-3 py-1.5 text-xs text-[#8AA0BC]">
+                    ✦ {item}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   )

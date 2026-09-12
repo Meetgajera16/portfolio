@@ -3,11 +3,11 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Meet Gajera — Data Science Portfolio',
-  description: 'Graduate student at Stevens Institute of Technology specializing in Data Science, ML, and Analytics.',
+  description: 'MS Data Science candidate at Stevens Institute of Technology building analytics, machine-learning, and data systems with Python and SQL.',
   keywords: ['Data Science', 'Machine Learning', 'Analytics', 'Python', 'SQL', 'Meet Gajera'],
   openGraph: {
     title: 'Meet Gajera — Data Science Portfolio',
-    description: 'Stevens Institute MS Data Science student. Python · SQL · ML · Tableau.',
+    description: 'MS Data Science candidate at Stevens. Python · SQL · Machine Learning · Analytics.',
     type: 'website',
   },
 }

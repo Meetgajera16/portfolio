@@ -1,4 +1,5 @@
 'use client'
+
 import { useEffect, useRef } from 'react'
 import SectionHeader from './SectionHeader'
 import { education } from '@/lib/data'
@@ -6,7 +7,7 @@ import { education } from '@/lib/data'
 const gradeColor: Record<string, string> = {
   A: '#4ade80',
   'A−': '#86efac',
-  'B+': '#D4AE52',
+  'B+': '#D4AF37',
   B: '#facc15',
 }
 
@@ -15,123 +16,85 @@ export default function Education() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add('visible')),
+      (entries) =>
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add('visible')
+        }),
       { threshold: 0.08 }
     )
+
     ref.current?.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
+
     return () => observer.disconnect()
   }, [])
 
   return (
-    <section
-      id="education"
-      ref={ref}
-      className="relative py-24 px-6 md:px-16 lg:px-24 max-w-7xl mx-auto"
-    >
-      <div className="section-divider mb-20" />
+    <section id="education" ref={ref} className="section-shell">
       <SectionHeader tag="Academic Record" title="My" highlight="Education" />
 
-      <div className="grid md:grid-cols-2 gap-8">
-        {education.map((edu, i) => (
-          <div
+      <div className="grid gap-6 lg:grid-cols-2">
+        {education.map((edu, index) => (
+          <article
             key={edu.institution}
-            className={`reveal delay-${i + 1} rounded-xl overflow-hidden`}
-            style={{
-              background: 'rgba(22,43,71,0.45)',
-              border: '1px solid var(--border)',
-              backdropFilter: 'blur(12px)',
-            }}
+            className={`reveal delay-${(index % 5) + 1} blackhole-card blackhole-card-hover overflow-hidden rounded-2xl`}
           >
-            {/* Card header strip */}
-            <div
-              className="px-6 py-4"
-              style={{ background: 'rgba(180,145,48,0.08)', borderBottom: '1px solid var(--border)' }}
-            >
-              <div className="flex items-start justify-between gap-3">
+            <div className="border-b border-white/10 bg-white/[0.025] p-7">
+              <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
                 <div>
-                  <p
-                    className="text-xs font-semibold tracking-[0.15em] uppercase mb-1"
-                    style={{ color: 'var(--gold)' }}
-                  >
-                    {edu.period}
+                  <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.28em] text-[#D4AF37]">
+                    Academic Orbit
                   </p>
-                  <h3
-                    className="font-display text-xl font-bold leading-tight"
-                    style={{ color: 'var(--cream)' }}
-                  >
+
+                  <h3 className="font-display text-3xl font-black leading-tight text-[#EDE8DD]">
                     {edu.degree}
                   </h3>
                 </div>
-                <span
-                  className="text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-sm flex-shrink-0 mt-1"
-                  style={{
-                    background: edu.status === 'Active' ? 'rgba(74,222,128,0.12)' : 'rgba(180,145,48,0.12)',
-                    color: edu.status === 'Active' ? '#4ade80' : 'var(--gold)',
-                    border: edu.status === 'Active' ? '1px solid rgba(74,222,128,0.25)' : '1px solid rgba(180,145,48,0.25)',
-                  }}
-                >
+
+                <span className="rounded-full border border-[#D4AF37]/25 bg-[#D4AF37]/10 px-3 py-1.5 text-xs font-bold text-[#D4AF37]">
                   {edu.status}
                 </span>
               </div>
-            </div>
 
-            <div className="px-6 py-5">
-              <p className="text-sm font-medium mb-1" style={{ color: 'var(--cream)' }}>
+              <p className="text-sm font-medium text-[#EDE8DD]">
                 {edu.institution}
               </p>
-              <p className="text-xs mb-4" style={{ color: 'var(--muted)' }}>
-                📍 {edu.location}
-              </p>
 
+              <p className="mt-1 text-sm text-[#8AA0BC]">
+                {edu.location} · {edu.period}
+              </p>
+            </div>
+
+            <div className="p-7">
               {edu.gpa && (
-                <div className="flex items-center gap-3 mb-5">
-                  <div
-                    className="px-3 py-1.5 rounded-sm"
-                    style={{
-                      background: 'rgba(74,222,128,0.08)',
-                      border: '1px solid rgba(74,222,128,0.2)',
-                    }}
-                  >
-                    <span className="text-xs font-bold tracking-wide" style={{ color: '#4ade80' }}>
-                      GPA {edu.gpa}
-                    </span>
-                  </div>
-                  <span className="text-xs" style={{ color: 'var(--muted)' }}>
-                    Fall 2025 Semester
-                  </span>
+                <div className="mb-6 inline-flex rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-emerald-300">
+                  GPA {edu.gpa}
                 </div>
               )}
 
-              {/* Transcript courses */}
               {edu.courses.length > 0 && (
                 <div>
-                  <p
-                    className="text-[10px] font-semibold tracking-[0.15em] uppercase mb-3"
-                    style={{ color: 'var(--muted)' }}
-                  >
-                    Fall 2025 Coursework
+                  <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.28em] text-[#8AA0BC]">
+                    Coursework
                   </p>
+
                   <div className="space-y-2">
                     {edu.courses.map((course) => (
                       <div
                         key={course.code}
-                        className="flex items-center justify-between gap-3 px-3 py-2 rounded-sm"
-                        style={{ background: 'rgba(8,19,31,0.5)' }}
+                        className="flex items-center justify-between gap-4 rounded-xl border border-white/10 bg-white/[0.035] px-4 py-3"
                       >
                         <div>
-                          <span
-                            className="text-[10px] font-bold tracking-wide mr-2"
-                            style={{ color: 'var(--gold)' }}
-                          >
+                          <p className="text-xs font-bold tracking-wide text-[#D4AF37]">
                             {course.code}
-                          </span>
-                          <span className="text-xs" style={{ color: '#8AA0BC' }}>
+                          </p>
+                          <p className="mt-1 text-sm text-[#8AA0BC]">
                             {course.name}
-                          </span>
+                          </p>
                         </div>
+
                         <span
-                          className="text-xs font-bold flex-shrink-0"
-                          style={{ color: gradeColor[course.grade] ?? 'var(--cream)' }}
+                          className="shrink-0 text-sm font-black"
+                          style={{ color: gradeColor[course.grade] ?? '#EDE8DD' }}
                         >
                           {course.grade}
                         </span>
@@ -141,7 +104,7 @@ export default function Education() {
                 </div>
               )}
             </div>
-          </div>
+          </article>
         ))}
       </div>
     </section>

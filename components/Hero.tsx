@@ -1,168 +1,57 @@
 'use client'
-import { useEffect, useRef } from 'react'
+
 import { personalInfo, stats } from '@/lib/data'
 
 export default function Hero() {
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const items = ref.current?.querySelectorAll('[data-anim]')
-    items?.forEach((el, i) => {
-      ;(el as HTMLElement).style.animationDelay = `${0.2 + i * 0.18}s`
-      el.classList.add('anim-ready')
-    })
-  }, [])
-
   return (
-    <section
-      id="hero"
-      ref={ref}
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden px-6 md:px-16 lg:px-24 pt-24 pb-16"
-    >
-      {/* Background blobs */}
-      <div
-        className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(180,145,48,0.10) 0%, transparent 70%)',
-          filter: 'blur(60px)',
-          animation: 'pulse 9s ease-in-out infinite',
-        }}
-      />
-      <div
-        className="absolute bottom-[5%] left-[-8%] w-[400px] h-[400px] rounded-full pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(22,43,71,0.9) 0%, transparent 70%)',
-          filter: 'blur(70px)',
-          animation: 'pulse 12s ease-in-out infinite reverse',
-        }}
-      />
+    <section id="hero" className="relative min-h-screen overflow-hidden px-6 pt-28 md:px-16 lg:px-24">
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-[58%] bg-gradient-to-r from-[#02030a] via-[#02030a]/85 to-transparent" />
 
-      {/* Grid accent lines */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.03]"
-        style={{
-          backgroundImage:
-            'linear-gradient(var(--gold) 1px, transparent 1px), linear-gradient(90deg, var(--gold) 1px, transparent 1px)',
-          backgroundSize: '80px 80px',
-        }}
-      />
+      <div className="relative z-10 flex min-h-[calc(100vh-7rem)] items-center">
+        <div className="max-w-4xl">
+          <p className="mb-5 text-xs font-black uppercase tracking-[0.35em] text-[#D4AF37]">
+            Data Science · Analytics · Machine Learning
+          </p>
 
-      <div className="relative z-10 max-w-5xl">
-        <p
-          data-anim
-          className="text-xs font-semibold tracking-[0.25em] uppercase mb-5 opacity-0"
-          style={{ color: 'var(--gold)', animation: 'fadeUp 0.7s ease forwards' }}
-        >
-          Data Science · Analytics · Machine Learning
-        </p>
+          <h1 className="font-display text-[clamp(5rem,11vw,10rem)] font-black leading-[0.86] text-[#EDE8DD]">
+            Meet
+            <br />
+            <span className="text-[#D4AF37]">Gajera</span>
+          </h1>
 
-        <h1
-          data-anim
-          className="font-display font-black leading-[0.95] mb-6 opacity-0"
-          style={{
-            fontSize: 'clamp(3.5rem, 9vw, 8rem)',
-            color: 'var(--cream)',
-            animation: 'fadeUp 0.7s ease forwards',
-          }}
-        >
-          Meet<br />
-          <span className="text-gradient">Gajera</span>
-        </h1>
+          <p className="mt-8 max-w-2xl text-base font-light leading-8 text-[#8AA0BC] md:text-xl">
+            Graduate student at{' '}
+            <span className="font-semibold text-[#EDE8DD]">Stevens Institute of Technology</span>{' '}
+            building data-driven systems, machine learning pipelines, and analytics dashboards that turn information into action.
+          </p>
 
-        <p
-          data-anim
-          className="text-base md:text-xl font-light max-w-xl mb-10 leading-relaxed opacity-0"
-          style={{ color: 'var(--muted)', animation: 'fadeUp 0.7s ease forwards' }}
-        >
-          Graduate student at{' '}
-          <span style={{ color: 'var(--cream)' }}>Stevens Institute of Technology</span>
-          {' '}— turning data into decisions through analytics, ML pipelines, and strategic dashboards.
-        </p>
+          <div className="mt-10 flex flex-wrap gap-4">
+            <a href="#projects" className="rounded-sm bg-[#D4AF37] px-7 py-3 text-sm font-black uppercase tracking-wide text-black transition hover:-translate-y-1 hover:shadow-[0_0_26px_rgba(212,175,55,0.28)]">
+              View My Work
+            </a>
+            <a href="#contact" className="rounded-sm border border-[#D4AF37]/80 px-7 py-3 text-sm font-black uppercase tracking-wide text-[#D4AF37] transition hover:-translate-y-1 hover:bg-[#D4AF37]/10">
+              Get In Touch
+            </a>
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="rounded-sm border border-white/15 px-7 py-3 text-sm font-black uppercase tracking-wide text-[#8AA0BC] transition hover:-translate-y-1 hover:border-white/40 hover:text-white">
+              Download CV
+            </a>
+          </div>
 
-        <div
-          data-anim
-          className="flex flex-wrap gap-4 mb-16 opacity-0"
-          style={{ animation: 'fadeUp 0.7s ease forwards' }}
-        >
-          <a
-            href="#projects"
-            className="px-7 py-3 text-sm font-semibold tracking-wide uppercase rounded-sm transition-all duration-200 hover:-translate-y-1"
-            style={{ background: 'var(--gold)', color: 'var(--navy)' }}
-          >
-            View My Work
-          </a>
-          <a
-            href="#contact"
-            className="px-7 py-3 text-sm font-semibold tracking-wide uppercase rounded-sm transition-all duration-200 hover:-translate-y-1"
-            style={{
-              border: '1.5px solid var(--gold)',
-              color: 'var(--gold)',
-            }}
-          >
-            Get In Touch
-          </a>
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            className="px-7 py-3 text-sm font-semibold tracking-wide uppercase rounded-sm transition-all duration-200 hover:-translate-y-1"
-            style={{
-              border: '1.5px solid rgba(90,114,144,0.4)',
-              color: 'var(--muted)',
-            }}
-          >
-            Download CV
-          </a>
-        </div>
-
-        {/* Stats */}
-        <div
-          data-anim
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 opacity-0"
-          style={{
-            borderTop: '1px solid var(--border)',
-            animation: 'fadeUp 0.7s ease forwards',
-          }}
-        >
-          {stats.map((s) => (
-            <div key={s.label}>
-              <div
-                className="font-display text-4xl font-bold"
-                style={{ color: 'var(--gold-light)' }}
-              >
-                {s.value}
+          <div className="mt-16 grid max-w-4xl grid-cols-2 gap-6 border-t border-white/10 pt-8 md:grid-cols-4">
+            {stats.map((s) => (
+              <div key={s.label}>
+                <div className="font-display text-4xl font-black text-[#D4AF37]">{s.value}</div>
+                <div className="mt-1 text-xs uppercase tracking-[0.22em] text-[#8AA0BC]">{s.label}</div>
               </div>
-              <div
-                className="text-xs tracking-widest uppercase mt-1"
-                style={{ color: 'var(--muted)' }}
-              >
-                {s.label}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
-        <span className="text-xs tracking-widest uppercase" style={{ color: 'var(--muted)' }}>
-          Scroll
-        </span>
-        <div
-          className="w-[1px] h-12 animate-pulse"
-          style={{ background: 'linear-gradient(to bottom, var(--gold), transparent)' }}
-        />
+      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-center">
+        <p className="text-xs uppercase tracking-[0.35em] text-[#8AA0BC]/75">Scroll deeper</p>
+        <div className="mx-auto mt-3 h-14 w-px bg-gradient-to-b from-[#D4AF37] to-transparent" />
       </div>
-
-      <style jsx>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(24px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes pulse {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.06); }
-        }
-      `}</style>
     </section>
   )
 }
